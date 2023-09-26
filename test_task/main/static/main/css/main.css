@@ -1,4 +1,6 @@
+.container {
+    padding-top: 30px;
+}
 body {
-    background-color: #CD853F;
-    margin-top: 70px;
+    background-color: #FF7F50;
 }

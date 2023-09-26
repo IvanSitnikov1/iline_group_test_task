@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 {% block content %}
 
-<h1>Древовидная структура сотрудников</h1>
+<h2 class="mt-5">Древовидная структура сотрудников</h2>
 
 <ul>
     <li>{{ boss.name }} - {{ boss.position }}{{ tree|safe }}</li>

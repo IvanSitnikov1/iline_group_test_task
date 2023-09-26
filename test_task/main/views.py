@@ -4,6 +4,12 @@ from django.views.generic import ListView
 from .models import *
 
 
+class EmployeeList(ListView):
+    model = Employee
+    template_name = 'main/employee_list.html'
+    context_object_name = 'employees'
+
+
 def employee_tree(request):
     def build_tree(employee_dict, parent_id, lvl):
         lvl -= 1
@@ -14,7 +20,7 @@ def employee_tree(request):
                     tree += f'<li style="display: none">{i.name} - {i.position}'
                 else:
                     tree += f'<li>{i.name} - {i.position}'
-                tree += build_tree(cats, i.id, lvl)
+                tree += build_tree(employee_dict, i.id, lvl)
                 tree += '</li>'
             tree += '</ul>'
         else:

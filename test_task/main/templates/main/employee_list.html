@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<h2 class="mt-5">Список сотрудников</h2>
+{% for employee in employees %}
+    {{ employee.name }}
+    <ul>
+        <li>Должность: {{ employee.position }}</li>
+        <li>Дата приема на работу: {{ employee.start_date }}</li>
+        <li>Размер заработной платы: {{ employee.salary }} тыс. руб</li>
+        <li>Начальник: {{ employee.parent.name }}</li>
+    </ul>
+{% endfor %}
+
+{% endblock %}
