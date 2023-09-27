@@ -1,13 +1,32 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
 from .models import *
+
+
+class CreateEmployee(CreateView):
+    pass
+
+
+class ShowEmployee(DetailView):
+    pass
+
+
+class UpdateEmployee(UpdateView):
+    pass
+
+
+class DeleteEmployee(DeleteView):
+    pass
 
 
 class EmployeeList(ListView):
     model = Employee
     template_name = 'main/employee_list.html'
     context_object_name = 'employees'
+
+    def get_queryset(self):
+        return Employee.objects.all()[:10]
 
 
 def employee_tree(request):
@@ -34,7 +53,7 @@ def employee_tree(request):
             employee_dict[i.parent_id].append(i)
         else:
             employee_dict[i.parent_id] = [i]
-    tree = build_tree(employee_dict, 1, 3)
+    tree = build_tree(employee_dict, 1, 4)
     boss = Employee.objects.get(parent_id__isnull=True)
     context = {'boss': boss, 'tree': tree}
     return render(request, 'main/employee_tree.html', context)

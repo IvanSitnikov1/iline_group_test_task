@@ -2,5 +2,9 @@
     padding-top: 30px;
 }
 body {
-    background-color: #FF7F50;
+    background-color: #bf4d007a;
+}
+ul.post {
+    background-color: #bb7f0026;
+    margin: 15px 0px 0px 0px;
 }
