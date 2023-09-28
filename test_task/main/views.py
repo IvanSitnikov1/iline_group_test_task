@@ -1,23 +1,43 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
+from .forms import CreateEmployeeForm
 from .models import *
 
 
 class CreateEmployee(CreateView):
-    pass
+    form_class = CreateEmployeeForm
+    template_name = 'main/create_employee.html'
+
+    def form_valid(self, form):
+        employee = form.save(commit=False)
+        employee.level = employee.parent.level + 1
+        employee.save()
+        return redirect('read', pk=employee.pk)
+
 
 
 class ShowEmployee(DetailView):
-    pass
+    model = Employee
+    template_name = 'main/show_employee.html'
+    context_object_name = 'employee'
 
 
 class UpdateEmployee(UpdateView):
-    pass
+    model = Employee
+    form_class = CreateEmployeeForm
+    template_name = 'main/update_employee.html'
+
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        return reverse('read', kwargs={'pk': pk})
 
 
-class DeleteEmployee(DeleteView):
-    pass
+def delete(request, pk):
+    employee = Employee.objects.get(pk=pk)
+    employee.delete()
+    return redirect('list')
 
 
 class EmployeeList(ListView):
@@ -26,7 +46,7 @@ class EmployeeList(ListView):
     context_object_name = 'employees'
 
     def get_queryset(self):
-        return Employee.objects.all()[:10]
+        return Employee.objects.all().order_by('-pk')[:10]
 
 
 def employee_tree(request):

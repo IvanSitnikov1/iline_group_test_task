@@ -4,10 +4,10 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', employee_tree),
-    path('employee-list', EmployeeList.as_view()),
-    path('employee/create', CreateEmployee.as_view()),
-    path('employee/read/<int:id>', ShowEmployee.as_view()),
-    path('employee/update/<int:id>', UpdateEmployee.as_view()),
-    path('employee/delete/<int:id>', DeleteEmployee.as_view()),
+    path('', employee_tree, name='tree'),
+    path('employee-list', EmployeeList.as_view(), name='list'),
+    path('employee/create', CreateEmployee.as_view(), name='create'),
+    path('employee/<int:pk>', ShowEmployee.as_view(), name='read'),
+    path('employee/update/<int:pk>', UpdateEmployee.as_view(), name='update'),
+    path('employee/delete/<int:pk>', delete, name='delete'),
 ]

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Employee(models.Model):
@@ -9,5 +10,8 @@ class Employee(models.Model):
     level = models.IntegerField(null=True)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
 
-    class MPTTMeta:
-        order_insertion_by = ['name']
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('employee', kwargs={'pk': self.pk})

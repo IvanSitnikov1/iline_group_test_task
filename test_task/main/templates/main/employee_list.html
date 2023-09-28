@@ -13,9 +13,7 @@
         </ul>
         </li>
     </ul>
-    <button type="button" class="btn btn-primary">Подробнее</button>
-    <button type="button" class="btn btn-primary">Редактировать</button>
-    <button type="button" class="btn btn-danger">Удалить</button>
+    <a href="{% url 'read' employee.pk %}"><button type="button" class="btn btn-primary">Подробнее</button></a>
 {% endfor %}
 
 {% endblock %}
