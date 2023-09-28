@@ -1,8 +1,10 @@
+from django.contrib.auth import login, logout
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
-from .forms import CreateEmployeeForm
+from .forms import *
 from .models import *
 
 
@@ -79,6 +81,22 @@ def employee_tree(request):
     return render(request, 'main/employee_tree.html', context)
 
 
+class RegisterUser(CreateView):
+    form_class = RegisterUserForm
+    template_name = 'main/register.html'
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('tree')
 
 
+class LoginUser(LoginView):
+    form_class = LoginUserForm
+    template_name = 'main/login.html'
 
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')

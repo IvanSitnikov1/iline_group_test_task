@@ -8,3 +8,6 @@ ul.post {
     background-color: #bb7f0026;
     margin: 15px 0px 0px 0px;
 }
+.left {
+    text-align: right;
+}

@@ -55,11 +55,14 @@
             <a class="nav-link active" href="{% url 'create' %}">Добавить сотрудника</a>
             {% endif %}
           </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item"><a class="nav-link active" href="#"> Username: {{ user.username }} </a></li>
+          <li class="nav-item"><a class="nav-link active" href="{% url 'logout' %}">Выйти</a></li>
+          {% else %}
+          <li class="nav-item"><a class="nav-link active" href="{% url 'register' %}">Регистрация</a></li>
+          <li class="nav-item"><a class="nav-link active" href="{% url 'login' %}">Войти</a></li>
+          {% endif %}
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
       </div>
     </div>
   </nav>
