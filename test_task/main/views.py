@@ -57,32 +57,18 @@ class EmployeeList(ListView):
         return Employee.objects.all().order_by('-pk')
 
 
-def employee_tree(request):
-    def build_tree(employee_dict, parent_id, lvl):
+def employee_tree(request, pk):
+    def build_tree(parent, lvl):
         lvl -= 1
-        if parent_id in employee_dict:
-            tree = '<ul>'
-            for i in employee_dict[parent_id]:
-                if lvl == 0:
-                    tree += f'<li style="display: none">{i.name} - {i.position}'
-                else:
-                    tree += f'<li>{i.name} - {i.position}'
-                tree += build_tree(employee_dict, i.id, lvl)
-                tree += '</li>'
-            tree += '</ul>'
-        else:
-            return ''
+        tree = '<ul>'
+        for i in Employee.objects.filter(parent=parent):
+            if lvl != 0:
+                tree += f'<li><a class="name-link" href="/{i.pk}">{i.name} - {i.position}</a></li>'
+                tree += build_tree(i, lvl)
+        tree += '</ul>'
         return tree
-
-    employees = Employee.objects.all()
-    employee_dict = {}
-    for i in employees:
-        if i.parent_id in employee_dict:
-            employee_dict[i.parent_id].append(i)
-        else:
-            employee_dict[i.parent_id] = [i]
-    tree = build_tree(employee_dict, 1, 4)
-    boss = Employee.objects.get(parent_id__isnull=True)
+    boss = Employee.objects.get(pk=pk)
+    tree = build_tree(boss, 2)
     context = {'boss': boss, 'tree': tree}
     return render(request, 'main/employee_tree.html', context)
 
@@ -95,7 +81,7 @@ class RegisterUser(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('tree')
+        return redirect('index')
 
 
 class LoginUser(LoginView):

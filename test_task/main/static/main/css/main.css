@@ -45,3 +45,6 @@ ul.post {
 .list-pages .page-num-selected:hover {
 	box-shadow: none;
 }
+a.name-link {
+    color: #003d7b;
+}
