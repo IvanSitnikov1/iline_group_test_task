@@ -48,12 +48,13 @@ def delete(request, pk):
 
 
 class EmployeeList(ListView):
+    paginate_by = 10
     model = Employee
     template_name = 'main/employee_list.html'
     context_object_name = 'employees'
 
     def get_queryset(self):
-        return Employee.objects.all().order_by('-pk')[:100]
+        return Employee.objects.all().order_by('-pk')
 
 
 def employee_tree(request):
