@@ -2,7 +2,6 @@
 
 {% block content %}
 <h2 class="mt-5">Добавление сотрудника</h2>
-
 <form action="{% url 'create' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 

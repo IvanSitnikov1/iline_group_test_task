@@ -49,7 +49,7 @@
             {% endif %}
           </li>
           <li class="nav-item">
-            {% if form %}
+            {% if request.path == '/employee/create' %}
             <a class="nav-link" href="{% url 'create' %}">Добавить сотрудника</a>
             {% else %}
             <a class="nav-link active" href="{% url 'create' %}">Добавить сотрудника</a>

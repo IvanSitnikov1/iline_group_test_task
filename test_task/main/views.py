@@ -1,14 +1,17 @@
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import *
 from .models import *
 
 
-class CreateEmployee(CreateView):
+class CreateEmployee(LoginRequiredMixin, CreateView):
+    login_url = "/login/"
     form_class = CreateEmployeeForm
     template_name = 'main/create_employee.html'
 
@@ -26,7 +29,8 @@ class ShowEmployee(DetailView):
     context_object_name = 'employee'
 
 
-class UpdateEmployee(UpdateView):
+class UpdateEmployee(LoginRequiredMixin, UpdateView):
+    login_url = "/login/"
     model = Employee
     form_class = CreateEmployeeForm
     template_name = 'main/update_employee.html'
@@ -36,6 +40,7 @@ class UpdateEmployee(UpdateView):
         return reverse('read', kwargs={'pk': pk})
 
 
+@login_required(login_url="/login/")
 def delete(request, pk):
     employee = Employee.objects.get(pk=pk)
     employee.delete()
@@ -48,7 +53,7 @@ class EmployeeList(ListView):
     context_object_name = 'employees'
 
     def get_queryset(self):
-        return Employee.objects.all().order_by('-pk')[:10]
+        return Employee.objects.all().order_by('-pk')[:100]
 
 
 def employee_tree(request):

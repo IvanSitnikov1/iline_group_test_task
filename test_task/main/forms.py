@@ -6,6 +6,12 @@ from .models import *
 
 
 class CreateEmployeeForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['parent'].label = 'Начальник'
+        self.fields['name'].label = 'Имя'
+        self.fields['position'].label = 'Должность'
+        self.fields['salary'].label = 'Заработная плата'
     class Meta:
         model = Employee
         fields = ['name', 'position', 'salary', 'parent']
