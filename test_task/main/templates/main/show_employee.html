@@ -4,6 +4,9 @@
 <h2 class="mt-5">Информация о сотруднике</h2>
 <ul class="post">
 <h3>{{ employee.name }}</h3><br>
+{% if employee.photo %}
+    <p><img class="img-thumbnail" src="{{ employee.photo.url }}"></p>
+{% endif %}
 <p>Должность: {{ employee.position }}</p>
 <p>Дата начала работы: {{ employee.start_date }}</p>
 <p>Заработная плата: {{ employee.salary }}</p>

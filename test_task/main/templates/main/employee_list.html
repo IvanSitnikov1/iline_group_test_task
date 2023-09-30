@@ -4,13 +4,18 @@
 {% for employee in employees %}
     <ul class="post">
         <li>
-        {{ employee.name }}
-        <ul>
-            <li>Должность: {{ employee.position }}</li>
-            <li>Дата приема на работу: {{ employee.start_date }}</li>
-            <li>Размер заработной платы: {{ employee.salary }} тыс. руб</li>
-            <li>Начальник: {{ employee.parent.name }}</li>
-        </ul>
+            {{ employee.name }}
+            <div style="display: flex; align-items: center;">
+                <ul>
+                    <li>Должность: {{ employee.position }}</li>
+                    <li>Дата приема на работу: {{ employee.start_date }}</li>
+                    <li>Размер заработной платы: {{ employee.salary }} тыс. руб</li>
+                    <li>Начальник: {{ employee.parent.name }}</li>
+                </ul>
+                {% if employee.photo %}
+                    <p style="display: inline; margin-left: 100px;"><img class="img-thumbnail min" src="{{ employee.photo.url }}"></p>
+                {% endif %}
+            </div>
         </li>
     </ul>
     <a href="{% url 'read' employee.pk %}"><button type="button" class="btn btn-primary">Подробнее</button></a>

@@ -15,7 +15,7 @@ class CreateEmployeeForm(forms.ModelForm):
         self.fields['parent'].queryset = Employee.objects.filter(level__lt=4)
     class Meta:
         model = Employee
-        fields = ['name', 'position', 'salary', 'parent']
+        fields = ['name', 'position', 'salary', 'parent', 'photo']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'position': forms.TextInput(attrs={'class': 'form-control'}),
