@@ -1,10 +1,10 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
 from .forms import *
@@ -21,7 +21,6 @@ class CreateEmployee(LoginRequiredMixin, CreateView):
         employee.level = employee.parent.level + 1
         employee.save()
         return redirect('read', pk=employee.pk)
-
 
 
 class ShowEmployee(DetailView):
@@ -75,6 +74,7 @@ def employee_tree(request, pk):
                 tree += build_tree(i, lvl)
         tree += '</ul>'
         return tree
+
     boss = Employee.objects.get(pk=pk)
     tree = build_tree(boss, 2)
     context = {'boss': boss, 'tree': tree}

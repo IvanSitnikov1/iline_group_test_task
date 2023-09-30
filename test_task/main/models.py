@@ -8,7 +8,11 @@ class Employee(models.Model):
     start_date = models.DateField(auto_now_add=True)
     salary = models.IntegerField()
     level = models.IntegerField(null=True)
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
+    parent = models.ForeignKey(
+        'self', on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
     photo = models.ImageField(
         upload_to='photos/%Y/%m/%d/',
         blank=True,

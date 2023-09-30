@@ -3,15 +3,19 @@
 {% block content %}
 <h2 class="mt-5">Информация о сотруднике</h2>
 <ul class="post">
-<h3>{{ employee.name }}</h3><br>
-{% if employee.photo %}
+    <h3>{{ employee.name }}</h3><br>
+    {% if employee.photo %}
     <p><img class="img-thumbnail" src="{{ employee.photo.url }}"></p>
-{% endif %}
-<p>Должность: {{ employee.position }}</p>
-<p>Дата начала работы: {{ employee.start_date }}</p>
-<p>Заработная плата: {{ employee.salary }}</p>
-<p>Начальник: {{ employee.parent }}</p>
+    {% endif %}
+    <p>Должность: {{ employee.position }}</p>
+    <p>Дата начала работы: {{ employee.start_date }}</p>
+    <p>Заработная плата: {{ employee.salary }}</p>
+    <p>Начальник: {{ employee.parent }}</p>
 </ul>
-<a href="{% url 'update' employee.pk %}"><button type="button" class="btn btn-primary">Редактировать</button></a>
-<a href="{% url 'delete' employee.pk %}"><button type="button" class="btn btn-danger">Удалить</button></a>
+<a href="{% url 'update' employee.pk %}">
+    <button type="button" class="btn btn-primary">Редактировать</button>
+</a>
+<a href="{% url 'delete' employee.pk %}">
+    <button type="button" class="btn btn-danger">Удалить</button>
+</a>
 {% endblock %}

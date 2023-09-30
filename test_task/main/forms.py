@@ -13,6 +13,7 @@ class CreateEmployeeForm(forms.ModelForm):
         self.fields['salary'].label = 'Заработная плата'
         self.fields['parent'].label = 'Начальник'
         self.fields['parent'].queryset = Employee.objects.filter(level__lt=4)
+
     class Meta:
         model = Employee
         fields = ['name', 'position', 'salary', 'parent', 'photo']

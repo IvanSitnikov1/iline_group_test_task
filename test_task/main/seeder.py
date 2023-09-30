@@ -1,9 +1,11 @@
-from django_seed import Seed
 import random
 from datetime import timedelta
+
+from django_seed import Seed
 from django.utils import timezone
-from main.models import *
 from faker import Faker
+
+from main.models import *
 
 
 seeder = Seed.seeder()
@@ -33,7 +35,9 @@ seeder.add_entity(Employee, 9, {
     'position': lambda x: random.choice(positions),
     'salary': lambda x: random.randint(200000, 250000),
     'parent_id': lambda x: random.randint(2, 4),
-    'start_date': lambda x: timezone.now() - timedelta(weeks=random.randint(0, 500)),
+    'start_date': lambda x: timezone.now() - timedelta(
+        weeks=random.randint(0, 500)
+    ),
     'level': 2,
     'photo': None,
 })
@@ -42,7 +46,9 @@ seeder.add_entity(Employee, 27, {
     'position': lambda x: random.choice(positions),
     'salary': lambda x: random.randint(150000, 200000),
     'parent_id': lambda x: random.randint(5, 13),
-    'start_date': lambda x: timezone.now() - timedelta(weeks=random.randint(0, 500)),
+    'start_date': lambda x: timezone.now() - timedelta(
+        weeks=random.randint(0, 500)
+    ),
     'level': 3,
     'photo': None,
 })
@@ -51,7 +57,9 @@ seeder.add_entity(Employee, 50000, {
     'position': lambda x: random.choice(positions),
     'salary': lambda x: random.randint(50000, 150000),
     'parent_id': lambda x: random.randint(14, 40),
-    'start_date': lambda x: timezone.now() - timedelta(weeks=random.randint(0, 500)),
+    'start_date': lambda x: timezone.now() - timedelta(
+        weeks=random.randint(0, 500)
+    ),
     'level': 4,
     'photo': None,
 })
