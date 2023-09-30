@@ -8,10 +8,6 @@ from .models import *
 class CreateEmployeeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['name'].label = 'Имя'
-        self.fields['position'].label = 'Должность'
-        self.fields['salary'].label = 'Заработная плата'
-        self.fields['parent'].label = 'Начальник'
         self.fields['parent'].queryset = Employee.objects.filter(level__lt=4)
 
     class Meta:
@@ -21,6 +17,7 @@ class CreateEmployeeForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'position': forms.TextInput(attrs={'class': 'form-control'}),
             'salary': forms.TextInput(attrs={'class': 'form-control'}),
+            'photo': forms.FileInput()
         }
 
 
