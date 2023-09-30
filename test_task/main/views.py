@@ -63,7 +63,7 @@ def employee_tree(request, pk):
         tree = '<ul>'
         for i in Employee.objects.filter(parent=parent):
             if lvl != 0:
-                tree += f'<li><a class="name-link" href="/{i.pk}">{i.name} - {i.position}</a></li>'
+                tree += f'<li><a class="name-link" href="/{i.pk}">{i.name} - Должность: {i.position}</a></li>'
                 tree += build_tree(i, lvl)
         tree += '</ul>'
         return tree

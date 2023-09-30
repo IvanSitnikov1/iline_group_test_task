@@ -8,10 +8,11 @@ from .models import *
 class CreateEmployeeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['parent'].label = 'Начальник'
         self.fields['name'].label = 'Имя'
         self.fields['position'].label = 'Должность'
         self.fields['salary'].label = 'Заработная плата'
+        self.fields['parent'].label = 'Начальник'
+        self.fields['parent'].queryset = Employee.objects.filter(level__lt=4)
     class Meta:
         model = Employee
         fields = ['name', 'position', 'salary', 'parent']
