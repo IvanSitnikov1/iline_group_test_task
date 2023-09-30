@@ -26,6 +26,7 @@ seeder.add_entity(Employee, 3, {
     'salary': lambda x: random.randint(250000, 300000),
     'parent_id': 1,
     'level': 1,
+    'photo': None,
 })
 seeder.add_entity(Employee, 9, {
     'name': lambda x: fake.name(),
@@ -34,6 +35,7 @@ seeder.add_entity(Employee, 9, {
     'parent_id': lambda x: random.randint(2, 4),
     'start_date': lambda x: timezone.now() - timedelta(weeks=random.randint(0, 500)),
     'level': 2,
+    'photo': None,
 })
 seeder.add_entity(Employee, 27, {
     'name': lambda x: fake.name(),
@@ -42,6 +44,7 @@ seeder.add_entity(Employee, 27, {
     'parent_id': lambda x: random.randint(5, 13),
     'start_date': lambda x: timezone.now() - timedelta(weeks=random.randint(0, 500)),
     'level': 3,
+    'photo': None,
 })
 seeder.add_entity(Employee, 50000, {
     'name': lambda x: fake.name(),
@@ -50,6 +53,7 @@ seeder.add_entity(Employee, 50000, {
     'parent_id': lambda x: random.randint(14, 40),
     'start_date': lambda x: timezone.now() - timedelta(weeks=random.randint(0, 500)),
     'level': 4,
+    'photo': None,
 })
 
 seeder.execute()

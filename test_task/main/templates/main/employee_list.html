@@ -1,22 +1,26 @@
 {% extends 'main/base.html' %}
 {% block content %}
 <h2 class="mt-5">Список сотрудников</h2>
+
+<form action="{% url 'list' %}" method="get">
+  <input class="form-control" name="q" type="text" placeholder="Введите имя сотрудника/начальника или должность">
+  <input type="submit" class="btn btn-dark" value="Поиск">
+</form>
+
 {% for employee in employees %}
     <ul class="post">
-        <li>
-            {{ employee.name }}
-            <div style="display: flex; align-items: center;">
+            <div style="display: flex; align-items: center; justify-content: space-around;">
                 <ul>
+                    <h5>{{ employee.name }}</h5>
                     <li>Должность: {{ employee.position }}</li>
                     <li>Дата приема на работу: {{ employee.start_date }}</li>
                     <li>Размер заработной платы: {{ employee.salary }} тыс. руб</li>
                     <li>Начальник: {{ employee.parent.name }}</li>
                 </ul>
                 {% if employee.photo %}
-                    <p style="display: inline; margin-left: 100px;"><img class="img-thumbnail min" src="{{ employee.photo.url }}"></p>
+                    <p style="display: inline;"><img class="img-thumbnail min" src="{{ employee.photo.url }}"></p>
                 {% endif %}
             </div>
-        </li>
     </ul>
     <a href="{% url 'read' employee.pk %}"><button type="button" class="btn btn-primary">Подробнее</button></a>
 {% endfor %}

@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 
 from .forms import *
 from .models import *
@@ -54,7 +55,14 @@ class EmployeeList(ListView):
     context_object_name = 'employees'
 
     def get_queryset(self):
-        return Employee.objects.all().order_by('-pk')
+        query = self.request.GET.get('q')
+        if query:
+            queryset = Employee.objects.filter(
+                Q(name=query) | Q(position=query) | Q(parent__name=query)
+            )
+        else:
+            queryset = Employee.objects.all().order_by('-pk')
+        return queryset
 
 
 def employee_tree(request, pk):
